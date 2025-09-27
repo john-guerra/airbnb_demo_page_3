@@ -62,7 +62,28 @@ export default function Listings() {
     form.reset();
   };
 
+  const fetchListings = async () => {
+    console.log("🌍 fetching listings");
+
+    try {
+      const res = await fetch("/api/listings");
+
+      if (!res.ok) {
+        console.log("Error loading listings!");
+        return;
+      }
+
+      const listings = await res.json();
+
+      console.log("Listings", listings.data);
+    } catch (error) {
+      console.log("Error loading listings!", error);
+    }
+  };
+
   form.addEventListener("submit", onCreate);
+
+  fetchListings();
 
   return listing;
 }
