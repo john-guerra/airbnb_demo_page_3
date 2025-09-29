@@ -1,27 +1,19 @@
 export default function Listings() {
   const listing = {};
+
   console.log("👍🏽 Listings Initialized");
-
   const form = document.getElementById("create-listings-form");
-  const listingsContainer = document.getElementById("listings-container");
+  const listingsContainer = document.querySelector("#listings-container");
 
-  console.log("Form loaded", form);
+  const appendListing = ({ title, price, description, host = "John" } = {}) => {
+    console.log("Append Listing", listing);
 
-  const appendListing = ({
-    title,
-    price,
-    description = "N/A",
-    host = "John",
-  } = {}) => {
-    console.log("➕ Appending listing", listing);
-
-    const div = document.createElement("div");
-    div.className = "listing col-6";
-    div.innerHTML = `
-    
+    const listingDiv = document.createElement("div");
+    listingDiv.className = "listing col-6";
+    listingDiv.innerHTML = `
       <article class="card">
         <img
-          src="https://a0.muscache.com/im/pictures/miso/Hosting-49096045/original/0e6f3f2e-2dcb-4a7c-8f1e-6d2f3f2e3f4g.jpeg"
+          src="https://a0.muscache.com/pictures/b7c2a199-4c17-4ba6-b81d-751719d2dac6.jpg"
           alt="Thumbnail for Serviced apartment in San Francisco · ★4.87 · 1 bedroom · 2 beds · 1 bath"
           class="card-img-top"
         />
@@ -30,13 +22,15 @@ export default function Listings() {
           <h3>
             ${title}
           </h3>
-          <div class="host">${host}</div>
-          <div class="price">${price}</div>
+          <div class="host">Holly</div>
+          <div class="price">$${price}</div>
           <div class="rating">⭐️4.87</div>
           <div
             class="description overflow-scroll"
             style="max-height: 180px"
-          >${description}</div>
+          >
+            ${description}
+          </div>
 
           <div class="actions">
             <button class="btn btn-primary">Rent</button>
@@ -46,20 +40,17 @@ export default function Listings() {
       </article>
     `;
 
-    listingsContainer.appendChild(div);
+    listingsContainer.appendChild(listingDiv);
   };
 
   const onCreate = (event) => {
-    // Stops the default submit behavior
     event.preventDefault();
-
-    console.log("🐣 creating listing");
+    console.log("🐣 On create listing", event);
 
     const formData = new FormData(form);
     const listing = Object.fromEntries(formData.entries());
 
     appendListing(listing);
-    form.reset();
   };
 
   form.addEventListener("submit", onCreate);
